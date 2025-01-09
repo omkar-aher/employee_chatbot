@@ -3,17 +3,36 @@
 <head>
     <title>Employee Chat Assistant</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Employee Information Assistant</h1>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <h1>AI Employee Assistant</h1>
         </div>
         <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+                Hi! I'm your AI assistant. How can I help you today? 👋
+            </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Ask about employees...">
-            <button onclick="sendMessage()">Send</button>
+            <input 
+                type="text" 
+                id="user-input" 
+                placeholder="Ask about employees..." 
+                autocomplete="off"
+            >
+            <button onclick="sendMessage()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                Send
+            </button>
         </div>
     </div>
 
@@ -23,9 +42,17 @@
             const message = input.value;
             if (message.trim() === '') return;
 
+            // Disable input and button while waiting
+            input.disabled = true;
+            const sendButton = document.querySelector('.chat-input button');
+            sendButton.disabled = true;
+
             // Add user message to chat
             addMessage('user', message);
             input.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
 
             // Send to backend
             fetch('/chat', {
@@ -33,12 +60,46 @@
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ question: message }),
+                body: JSON.stringify({ question: message })
             })
             .then(response => response.json())
             .then(data => {
-                addMessage('bot', data.response);
+                if (data && data.response) {
+                    hideTypingIndicator();
+                    addMessage('bot', data.response);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                // Re-enable input and button
+                input.disabled = false;
+                sendButton.disabled = false;
+                input.focus();
             });
+        }
+
+        function showTypingIndicator() {
+            const messages = document.getElementById('chat-messages');
+            const existingIndicator = document.getElementById('typing-indicator');
+            
+            // Only add if not already showing
+            if (!existingIndicator) {
+                const indicator = document.createElement('div');
+                indicator.className = 'typing-indicator';
+                indicator.id = 'typing-indicator';
+                indicator.textContent = 'Thinking...';
+                messages.appendChild(indicator);
+                messages.scrollTop = messages.scrollHeight;
+            }
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
         }
 
         function addMessage(sender, text) {
@@ -50,7 +111,6 @@
             messages.scrollTop = messages.scrollHeight;
         }
 
-        // Allow Enter key to send message
         document.getElementById('user-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 sendMessage();

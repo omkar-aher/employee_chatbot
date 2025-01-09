@@ -15,6 +15,70 @@
       "bench_status": "bench",
       "skills": ["Java", "Spring", "MySQL"],
       "certifications": ["Java SE 11 Developer", "MongoDB Developer"]
+    },
+    {
+      "id": "003",
+      "name": "Alice Johnson",
+      "age": 32,
+      "bench_status": "assigned",
+      "skills": ["Python", "Data Science", "Machine Learning"],
+      "certifications": ["Python 3 Certified", "Machine Learning Specialist"]
+    },
+    {
+      "id": "004",
+      "name": "Bob Brown",
+      "age": 29,
+      "bench_status": "assigned",
+      "skills": ["JavaScript", "React", "Node.js"],
+      "certifications": ["JavaScript ES6 Certified", "React Developer"]
+    },
+    {
+      "id": "005",
+      "name": "Charlie Davis",
+      "age": 31,
+      "bench_status": "bench",
+      "skills": ["Java", "Spring", "MySQL"],
+      "certifications": ["Java SE 11 Developer", "MongoDB Developer"]
+    },
+    {
+      "id": "006",
+      "name": "Diana Wilson",
+      "age": 27,
+      "bench_status": "assigned",
+      "skills": ["Angular", "TypeScript", "Firebase"],
+      "certifications": ["Google Cloud Developer", "Angular Certified"]
+    },
+    {
+      "id": "007",
+      "name": "Ethan Martinez",
+      "age": 33,
+      "bench_status": "bench",
+      "skills": ["DevOps", "AWS", "Docker"],
+      "certifications": ["AWS DevOps Engineer", "Kubernetes Administrator"]
+    },
+    {
+      "id": "008",
+      "name": "Fiona Taylor",
+      "age": 29,
+      "bench_status": "assigned",
+      "skills": ["UI/UX", "Figma", "Adobe XD"],
+      "certifications": ["UI/UX Professional", "Adobe Certified Expert"]
+    },
+    {
+      "id": "009",
+      "name": "George Anderson",
+      "age": 35,
+      "bench_status": "assigned",
+      "skills": ["Project Management", "Agile", "Jira"],
+      "certifications": ["PMP", "SAFe Agilist"]
+    },
+    {
+      "id": "010",
+      "name": "Hannah Lee",
+      "age": 26,
+      "bench_status": "bench",
+      "skills": ["Flutter", "Dart", "Mobile Development"],
+      "certifications": ["Flutter Developer", "iOS Developer"]
     }
   ]
 } 
